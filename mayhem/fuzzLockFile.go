@@ -1,4 +1,4 @@
-package fuzz
+package fuzzLockFile
 
 import "strconv"
 import "github.com/tfverch/tfvc/internal/lockfile"

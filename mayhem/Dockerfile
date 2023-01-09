@@ -1,4 +1,3 @@
-# FROM fuzzers/go-fuzz:1.2.0
 FROM golang:1.19 as builder
 
 COPY . /tfvc
@@ -10,8 +9,8 @@ RUN apt update && apt install -y clang
 
 ENV GOFLAGS -mod=mod
 
-RUN go-fuzz-build -libfuzzer -o fuzz.a && \
-    clang -fsanitize=fuzzer fuzz.a -o fuzz.libfuzzer
+RUN go-fuzz-build -libfuzzer -o fuzzLockFile.a && \
+    clang -fsanitize=fuzzer fuzzLockFile.a -o fuzzLockFile.libfuzzer
 
 FROM debian:bookworm-slim
-COPY --from=builder /tfvc/mayhem/fuzz.libfuzzer /
+COPY --from=builder /tfvc/mayhem/fuzzLockFile.libfuzzer /
